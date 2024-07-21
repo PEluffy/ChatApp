@@ -1,8 +1,9 @@
 namespace ChatAppServer
 {
-    enum MessageType
+    public enum MessageType
     {
-        GREETING,
+        ZERO,//user login info send by the client
+        ONE,//user verification send by the server 
 
     }
 }

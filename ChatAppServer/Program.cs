@@ -7,7 +7,7 @@ var app = builder.Build();
 
 var webSocketOptions = new WebSocketOptions
 {
-    KeepAliveInterval = TimeSpan.FromMinutes(2)
+    KeepAliveInterval = TimeSpan.FromMinutes(1)
 };
 
 app.UseWebSockets(webSocketOptions);
@@ -22,8 +22,13 @@ app.Use(async (context, next) =>
         {
             Console.WriteLine("requst from cliet");
             using var webSocket = await context.WebSockets.AcceptWebSocketAsync();
+            // string receivedMsg = await WebsocketManager.ReceiveMessage(webSocket);
+            // Console.WriteLine("received msg", receivedMsg);
+            bool login = await WebsocketManager.HandleWebsocket(webSocket);
+            // await WebsocketManager.SendMessage(webSocket,
 
-            await WebsocketManager.SendMessage(webSocket, "hello client");
+            // );
+
         }
         else
         {

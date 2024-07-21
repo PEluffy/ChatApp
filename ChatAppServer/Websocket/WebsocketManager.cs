@@ -1,28 +1,40 @@
 using System.Net.WebSockets;
-using System.Net;
-using System;
 using System.Text;
 namespace ChatAppServer
 {
     public class WebsocketManager
     {
-        public static async Task SendMessage(WebSocket ws, String message)
+        public static async Task<bool> HandleWebsocket(WebSocket ws)
         {
             var buffer = new byte[1024 * 4];
-            byte[] bytes = Encoding.UTF8.GetBytes(message);
             var receiveResult = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            while (!receiveResult.CloseStatus.HasValue)
+            var message = Encoding.UTF8.GetString(buffer, 0, receiveResult.Count);
+            Console.WriteLine(message);
+            UserWithMessageType userWithMessageType = System.Text.Json.JsonSerializer.Deserialize<UserWithMessageType>(message);
+            User user = userWithMessageType.User;
+            // Console.WriteLine(user.Name);
+            // Console.WriteLine(user.Password);
+            bool userValid = Utils.ValidateUser(user.Name, user.Password);
+            if (userValid)
             {
-                await ws.SendAsync(
-                    new ArraySegment<byte>(bytes, 0, bytes.Length),
-                    WebSocketMessageType.Text,
-                        true,
-                    CancellationToken.None);
-
-                receiveResult = await ws.ReceiveAsync(
-                    new ArraySegment<byte>(buffer), CancellationToken.None);
+                return true;
             }
-
+            return false;
         }
+        //     public static async Task SendMessage(WebSocket ws)
+        //     {
+        //         var buffer = new byte[1024 * 4];
+        //         await ws.SendAsync(
+        //             new ArraySegment<byte>(buffer, 0,),
+        //             WebSocketMessageType.Text,
+        //                 true,
+        //             CancellationToken.None);
+
+        //     }
+        //     await ws.CloseAsync(
+        // receiveResult.CloseStatus.Value,
+        // receiveResult.CloseStatusDescription,
+        // CancellationToken.None);
+        // }
     }
 }
