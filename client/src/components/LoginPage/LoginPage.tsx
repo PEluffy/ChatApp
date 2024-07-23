@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Z_ASCII } from "zlib";
 
 interface User {
   Name: string;
@@ -15,8 +14,6 @@ interface UserWithMessageType {
 }
 export const LoginPage = () => {
   const [user, setUser] = useState<User | null>(null);
-  // const [UserWithMessageType, setUserWithMessageType] =
-  //   useState<UserWithMessageType | null>(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState(false);
@@ -26,10 +23,6 @@ export const LoginPage = () => {
       const socket = new WebSocket("wss://localhost:7247/ws");
       socket.onopen = () => {
         console.log("WebSocket connection opened.");
-        // setUserWithMessageType({
-        //   User: user,
-        //   MessageType: MessageType.ONE,
-        // });
         const UserWithMessageType: UserWithMessageType = {
           User: user,
           MessageType: MessageType.ZERO,
@@ -37,11 +30,19 @@ export const LoginPage = () => {
         socket.send(JSON.stringify(UserWithMessageType));
       };
       socket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        console.log(message);
-        if ((message.type = MessageType.ONE)) {
-          console.log(message);
+        const data = JSON.parse(event.data);
+        console.log(data);
+        if (data.MessageType === MessageType.ONE) {
+          if (data.Sucess === true) {
+            //redirect to the chat page
+          }
         }
+        // const message = JSON.parse(event.data);
+        // console.log(message);
+        // if (message.MessageType === MessageType.ONE) {
+        //   console.log(message);
+        //redirect to the next messaging page
+        // }
       };
 
       socket.onclose = () => {

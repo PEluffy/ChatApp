@@ -1,5 +1,8 @@
 
 using System.Net.WebSockets;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ChatAppServer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +28,22 @@ app.Use(async (context, next) =>
             // string receivedMsg = await WebsocketManager.ReceiveMessage(webSocket);
             // Console.WriteLine("received msg", receivedMsg);
             bool login = await WebsocketManager.HandleWebsocket(webSocket);
+            if (login)
+            {
+                Console.WriteLine("user added");
+                WebsocketManager.AddWebSocket(webSocket);
+                LoginResponse loginResponse = new(login);
+                string jsonString = JsonSerializer.Serialize(loginResponse);
+                Console.WriteLine(jsonString);
+
+                //send data through websocket making instance  of LoginRespose
+                WebsocketManager.SendMessageAsync(webSocket, jsonString);
+            }
+            else
+            {
+                Console.WriteLine("user verification failed");
+                WebsocketManager.CloseWebSocket(webSocket);
+            }
             // await WebsocketManager.SendMessage(webSocket,
 
             // );

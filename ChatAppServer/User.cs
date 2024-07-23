@@ -18,12 +18,5 @@ namespace ChatAppServer
             new() { Name = "user3", Password = "password3" },
             new() { Name="pk",Password="pk1"},
         };
-
-
-
-
-
-
-
     }
 }

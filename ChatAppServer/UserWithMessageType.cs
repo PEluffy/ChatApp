@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Server.IIS.Core;
 
+
+//Login data
 namespace ChatAppServer
 {
     public class UserWithMessageType
