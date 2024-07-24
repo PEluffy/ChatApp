@@ -2,6 +2,14 @@
   width: 400px;
   height: 500px;
   background-color: #18191a;
+  border-radius: 10px;
+}
+/* .bor {
+  border-bottom: 5px;
+  border-color: aqua;
+} */
+.scrollable-div {
+  height: 390px;
 }
 .user-avatar {
   height: 40px;
@@ -17,7 +25,7 @@
 .username {
   font-size: 15px;
   font-weight: 500;
-  margin-right: 3px;
+  margin-right: 7px;
   line-height: 1;
 }
 .svg-container {
@@ -27,17 +35,42 @@
 .svg-container img {
   width: 20px;
 }
-.user-img img ::after {
-}
 .user-img img {
   width: 40px;
   border-radius: 50%;
-  margin-right: 4px;
+  margin-right: 10px;
 }
+
+.bottombox {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #303131;
+}
+.bottombox img {
+  width: 30px;
+}
+.user-img {
+  position: relative;
+}
+.user-img::after {
+  content: "";
+  position: absolute;
+  width: 10px; /* Size of the green dot */
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  bottom: 0;
+  right: 10px;
+  border: 2px solid #18191a; /* Optional: add a border to create a gap from the image */
+}
+
 .topbox {
   display: flex;
   padding: 10px;
   justify-content: space-between;
+  border-bottom: 1px solid #282828;
 }
 .username::after {
   display: block; /* This will make the content appear below the p element */
@@ -46,4 +79,9 @@
   font-weight: lighter;
   color: rgb(160, 160, 160);
   margin: 0;
+}
+
+input {
+  border-radius: 10px;
+  color: black;
 }
