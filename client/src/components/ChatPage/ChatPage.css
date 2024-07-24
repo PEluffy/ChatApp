@@ -1,6 +1,6 @@
 .box {
-  width: 300px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   background-color: #18191a;
 }
 .user-avatar {
@@ -14,14 +14,36 @@
   align-items: center; /* Centers vertically */
   height: 100vh; /* Makes the container full height of the viewport */
 }
-img {
+.username {
+  font-size: 15px;
+  font-weight: 500;
+  margin-right: 3px;
+  line-height: 1;
+}
+.svg-container {
+  display: flex;
+  gap: 1rem;
+}
+.svg-container img {
+  width: 20px;
+}
+.user-img img ::after {
+}
+.user-img img {
   width: 40px;
   border-radius: 50%;
+  margin-right: 4px;
 }
 .topbox {
   display: flex;
   padding: 10px;
+  justify-content: space-between;
 }
-.username ::after {
-  content: attr(hidsadas);
+.username::after {
+  display: block; /* This will make the content appear below the p element */
+  content: "active 5min ago";
+  font-size: 10px;
+  font-weight: lighter;
+  color: rgb(160, 160, 160);
+  margin: 0;
 }
