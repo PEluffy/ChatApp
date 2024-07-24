@@ -1,0 +1,27 @@
+.box {
+  width: 300px;
+  height: 400px;
+  background-color: #18191a;
+}
+.user-avatar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.chatContainer {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  height: 100vh; /* Makes the container full height of the viewport */
+}
+img {
+  width: 40px;
+  border-radius: 50%;
+}
+.topbox {
+  display: flex;
+  padding: 10px;
+}
+.username ::after {
+  content: attr(hidsadas);
+}

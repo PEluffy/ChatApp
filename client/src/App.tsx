@@ -7,7 +7,7 @@ import { LoginPage } from "./components/LoginPage/LoginPage";
 function App() {
   return (
     <div className="App">
-      <LoginPage></LoginPage>
+      <ChatPage />
     </div>
   );
 }
