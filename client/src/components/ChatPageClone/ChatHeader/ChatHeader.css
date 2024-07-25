@@ -1,0 +1,60 @@
+/* ChatHeader.css */
+.topbox {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid #282828;
+}
+
+.user-avatar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  font-size: 15px;
+  font-weight: 500;
+  margin-right: 7px;
+  line-height: 1;
+}
+
+.username::after {
+  display: block; /* This will make the content appear below the p element */
+  content: "active 5min ago";
+  font-size: 10px;
+  font-weight: lighter;
+  color: rgb(160, 160, 160);
+  margin: 0;
+}
+
+.svg-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.svg-container img {
+  width: 20px;
+}
+
+.user-img img {
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-img {
+  position: relative;
+}
+
+.user-img::after {
+  content: "";
+  position: absolute;
+  width: 10px; /* Size of the green dot */
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  bottom: 0;
+  right: 10px;
+  border: 2px solid #18191a; /* Optional: add a border to create a gap from the image */
+}

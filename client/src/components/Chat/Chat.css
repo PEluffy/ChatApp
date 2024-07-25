@@ -1,0 +1,14 @@
+/* ChatPage.css */
+.box {
+  width: 400px;
+  height: 500px;
+  background-color: #18191a;
+  border-radius: 10px;
+}
+
+.chatContainer {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  height: 100vh; /* Makes the container full height of the viewport */
+}
