@@ -39,12 +39,31 @@
   border-radius: 50%;
   margin-right: 10px;
 }
-
-.message-bubble {
+.incoming {
+  display: flex;
   margin-top: 30px;
   padding: 7px;
   border-radius: 10px;
   background-color: #e9ecef;
+  color: black;
+  max-width: 50%;
+  word-break: break-word;
+  justify-content: space-between;
+  align-items: center;
+}
+.chat-time {
+  color: rgb(77, 76, 76);
+  font-size: 8px;
+}
+.outgoing {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 7px;
+  margin-left: 50%;
+  border-radius: 10px;
+  background-color: #236fbc;
   color: black;
   max-width: 50%;
   word-break: break-word;

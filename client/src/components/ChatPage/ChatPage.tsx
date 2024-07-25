@@ -10,42 +10,68 @@ export const ChatPage = () => {
   const [message, setMessage] = useState<null | string>(null);
   const [chat, setChat] = useState([
     {
+      time: "3:30pm",
+      type: "outgoing",
       message: "k gariraxas oi ?",
     },
     {
+      time: "3:31pm",
+      type: "incoming",
       message: "Kati xaina ta?",
     },
     {
+      time: "3:32pm",
+      type: "outgoing",
       message: "Kaam k chafdsfas huh kaam xaina teroo ?",
     },
     {
+      time: "3:33pm",
+      type: "incoming",
       message: "Bhok lagyo ta?",
     },
     {
+      time: "3:34pm",
+      type: "outgoing",
       message: "Thik chau?",
     },
     {
+      time: "3:35pm",
+      type: "incoming",
       message: "K vayo?",
     },
     {
+      time: "3:36pm",
+      type: "outgoing",
       message: "Kaati bho bolako?",
     },
     {
+      time: "3:37pm",
+      type: "incoming",
       message: "K gardai chau?",
     },
     {
+      time: "3:38pm",
+      type: "outgoing",
       message: "Aaja k bho?",
     },
     {
+      time: "3:39pm",
+      type: "incoming",
       message: "Jaane ta kta?",
     },
     {
+      time: "3:40pm",
+      type: "outgoing",
       message: "Jaane ta kta?",
     },
     {
+      time: "3:41pm",
+      type: "incoming",
       message: "Jaane ta kta?",
     },
     {
+      time: "3:42pm",
+      type: "outgoing",
       message: "Jaane ta kta?",
     },
   ]);
@@ -56,13 +82,29 @@ export const ChatPage = () => {
   };
   const handleSubmit = () => {
     if (message) {
+      const now = new Date();
+      let hours: number = now.getHours();
+      let minutes: number = now.getMinutes();
+
+      const ampm: string = hours >= 12 ? "pm" : "am";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      minutes = minutes < 10 ? parseInt("0" + minutes) : minutes;
+
+      const timeString: string = `${hours}:${
+        minutes < 10 ? "0" + minutes : minutes
+      }${ampm}`;
+
       setChat((prev) => [
         ...prev,
         {
+          time: timeString,
+          type: "outgoing",
           message: message,
         },
       ]);
-      setMessage(null);
+      setMessage("");
     }
   };
   useEffect(() => {
@@ -110,7 +152,10 @@ export const ChatPage = () => {
               <div className="user-pastmessage-box">
                 {chat.map((chatMessage, index) => (
                   <div key={index} className="message">
-                    <div className="message-bubble">{chatMessage.message}</div>
+                    <div className={`message-bubble ${chatMessage.type}`}>
+                      {chatMessage.message}
+                      <div className="chat-time">{chatMessage.time}</div>
+                    </div>
                   </div>
                 ))}
               </div>
