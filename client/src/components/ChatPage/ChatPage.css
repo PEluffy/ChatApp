@@ -4,12 +4,11 @@
   background-color: #18191a;
   border-radius: 10px;
 }
-/* .bor {
-  border-bottom: 5px;
-  border-color: aqua;
-} */
+
 .scrollable-div {
   height: 390px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px;
 }
 .user-avatar {
   height: 40px;
@@ -41,6 +40,15 @@
   margin-right: 10px;
 }
 
+.message-bubble {
+  margin-top: 30px;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: #e9ecef;
+  color: black;
+  max-width: 50%;
+  word-break: break-word;
+}
 .bottombox {
   padding: 10px;
   display: flex;
@@ -65,7 +73,10 @@
   right: 10px;
   border: 2px solid #18191a; /* Optional: add a border to create a gap from the image */
 }
-
+svg,
+img:hover {
+  cursor: pointer;
+}
 .topbox {
   display: flex;
   padding: 10px;
@@ -81,7 +92,14 @@
   margin: 0;
 }
 
-input {
-  border-radius: 10px;
+.input-box {
   color: black;
+  font-size: 16px;
+  border: 1px solid #ccc; /* Default border */
+  border-radius: 4px;
+  outline: none; /* Remove default outline */
+}
+
+.input-box:focus {
+  box-shadow: none;
 }
