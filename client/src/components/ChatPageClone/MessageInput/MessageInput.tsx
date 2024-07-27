@@ -78,6 +78,11 @@ const MessageInput: React.FC<MessageInputProps> = ({
             className="input-box"
             value={message || ""}
             onChange={onMessageChange}
+            onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+              if (event.key === "Enter") {
+                onSubmit();
+              }
+            }}
           ></input>
         </div>
       </div>
