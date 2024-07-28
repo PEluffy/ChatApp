@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   Name: string;
@@ -14,9 +15,12 @@ interface UserWithMessageType {
 }
 export const LoginPage = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [login, setLogin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -33,8 +37,10 @@ export const LoginPage = () => {
         const data = JSON.parse(event.data);
         console.log(data);
         if (data.MessageType === MessageType.ONE) {
-          if (data.Sucess === true) {
-            //redirect to the chat page
+          if (data.Success === true) {
+            navigate("/Chat");
+          } else {
+            navigate("/*");
           }
         }
         // const message = JSON.parse(event.data);
@@ -59,19 +65,22 @@ export const LoginPage = () => {
   }, [user]);
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    if (username && password) {
-      setUser({ Name: username, Password: password });
+    if (userNameRef.current && passwordRef.current) {
+      setUser({
+        Name: userNameRef.current.value,
+        Password: passwordRef.current.value,
+      });
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name === "name") {
-      setUsername(value);
-    } else if (name === "password") {
-      setPassword(value);
-    }
-  };
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   if (name === "name") {
+  //     setUsername(value);
+  //   } else if (name === "password") {
+  //     setPassword(value);
+  //   }
+  // };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -92,11 +101,12 @@ export const LoginPage = () => {
             </label>
             <div className="mt-2">
               <input
+                ref={userNameRef}
                 id="name"
                 name="name"
                 type="test"
                 required
-                onChange={handleChange}
+                // onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -121,12 +131,13 @@ export const LoginPage = () => {
             </div>
             <div className="mt-2">
               <input
+                ref={passwordRef}
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                onChange={handleChange}
+                // onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>

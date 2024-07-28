@@ -21,7 +21,12 @@ app.Use(async (context, next) =>
 {
     if (context.Request.Path == "/ws")
     {
-        if (context.WebSockets.IsWebSocketRequest)
+        if (!context.WebSockets.IsWebSocketRequest)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            return;
+        }
+        try
         {
             Console.WriteLine("requst from cliet");
             using var webSocket = await context.WebSockets.AcceptWebSocketAsync();
@@ -41,17 +46,16 @@ app.Use(async (context, next) =>
             }
             else
             {
+                LoginResponse loginResponse = new(login);
+                string jsonString = JsonSerializer.Serialize(loginResponse);
+                WebsocketManager.SendMessageAsync(webSocket, jsonString);
                 Console.WriteLine("user verification failed");
                 WebsocketManager.CloseWebSocket(webSocket);
             }
-            // await WebsocketManager.SendMessage(webSocket,
-
-            // );
-
         }
-        else
+        catch (Exception ex)
         {
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            Console.WriteLine("e", ex.Message);
         }
     }
     else
