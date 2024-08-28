@@ -23,6 +23,14 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if the user is already logged in
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      navigate("/Chat"); // Redirect to the chat page if already logged in
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     if (user) {
       const socket = new WebSocket("wss://localhost:7247/ws");
       socket.onopen = () => {
@@ -38,6 +46,8 @@ export const LoginPage = () => {
         console.log(data);
         if (data.MessageType === MessageType.ONE) {
           if (data.Success === true) {
+            localStorage.setItem("sessionUser", JSON.stringify(user));
+            localStorage.setItem("isLoggedIn", "true");
             navigate("/Chat");
           } else {
             navigate("/*");
