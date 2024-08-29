@@ -5,72 +5,72 @@ import MessageList from "../ChatPageClone/MessageList/MessageList";
 import MessageInput from "../ChatPageClone/MessageInput/MessageInput";
 import "./Chat.css";
 
+enum MessageType {
+  ZERO,
+  ONE,
+}
+
 const Chat = () => {
   const [message, setMessage] = useState<string>("");
   const [chat, setChat] = useState([
     {
+      sender: "user",
       time: "3:30pm",
-      type: "outgoing",
       message: "k gariraxas oi ?",
     },
     {
+      sender: "user1",
       time: "3:31pm",
-      type: "incoming",
       message: "Kati xaina ta?",
     },
     {
+      sender: "user1",
       time: "3:32pm",
-      type: "outgoing",
       message: "Kaam k chafdsfas huh kaam xaina teroo ?",
     },
     {
+      sender: "user1",
       time: "3:33pm",
-      type: "incoming",
       message: "Bhok lagyo ta?",
     },
     {
+      sender: "user1",
       time: "3:34pm",
-      type: "outgoing",
       message: "Thik chau?",
     },
     {
+      sender: "user1",
       time: "3:35pm",
-      type: "incoming",
       message: "K vayo?",
     },
     {
+      sender: "user1",
       time: "3:36pm",
-      type: "outgoing",
       message: "Kaati bho bolako?",
     },
     {
+      sender: "user1",
       time: "3:37pm",
-      type: "incoming",
       message: "K gardai chau?",
     },
     {
+      sender: "user1",
       time: "3:38pm",
-      type: "outgoing",
       message: "Aaja k bho?",
     },
     {
+      sender: "user1",
       time: "3:39pm",
-      type: "incoming",
       message: "Jaane ta kta?",
     },
     {
+      sender: "user1",
       time: "3:40pm",
-      type: "outgoing",
       message: "Jaane ta kta?",
     },
     {
+      sender: "user1",
       time: "3:41pm",
-      type: "incoming",
-      message: "Jaane ta kta?",
-    },
-    {
-      time: "3:42pm",
-      type: "outgoing",
       message: "Jaane ta kta?",
     },
   ]);
@@ -97,14 +97,29 @@ const Chat = () => {
         minutes < 10 ? "0" + minutes : minutes
       }${ampm}`;
 
-      setChat((prev) => [
-        ...prev,
-        {
+      // setChat((prev) => [
+      //   ...prev,
+      //   {
+      //     time: timeString,
+      //     type: "outgoing",
+      //     message,
+      //   },
+      // ]);
+      //websocket connection when user enter a message
+      const socket = new WebSocket("wss://localhost:7247/ws");
+      socket.onopen = () => {
+        console.log("WebSocket connection opened.");
+        const sessionUser = localStorage.getItem("sessionUser");
+        const sender = sessionUser ? JSON.parse(sessionUser).Name : "Guest";
+        const Message = {
           time: timeString,
-          type: "outgoing",
-          message,
-        },
-      ]);
+          sender: sender,
+          messageType: MessageType.ONE,
+        };
+        console.log(Message);
+        socket.send(JSON.stringify(Message));
+      };
+
       setMessage("");
     }
   };

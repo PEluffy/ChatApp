@@ -3,7 +3,7 @@ import "./MessageList.css";
 
 interface Message {
   time: string;
-  type: string;
+  sender: string;
   message: string;
 }
 
@@ -20,14 +20,14 @@ const MessageList: React.FC<MessageListProps> = ({ chat }) => {
         scrollableDivRef.current.scrollHeight;
     }
   }, [chat]);
-
+  //fix needed here chatMessage.sender is same as localStoreage user that it is outgoing message else it is incomming msg
   return (
     <div className="scrollable-div" ref={scrollableDivRef}>
       <div className="past-mesages">
         <div className="user-pastmessage-box">
           {chat.map((chatMessage, index) => (
             <div key={index} className="message">
-              <div className={`message-bubble ${chatMessage.type}`}>
+              <div className={`message-bubble ${chatMessage.sender}`}>
                 {chatMessage.message}
                 <div className="chat-time">{chatMessage.time}</div>
               </div>
